@@ -50,6 +50,14 @@ Forum posts are second-hand. Treat them as leads, not facts.
 | [The CDrive Card](https://www.applefritter.com/node/24740), posts by Jeff Mazur (2010–2014) | "When the //c+ came out, **with its memory card that plugged in and bridged over the CPU** …" (so CPU-socket add-ons needed a ribbon cable). Apple's code name for "their //c+ memory card" was **"Tiger Tail Plus"**. Mazur designed the **Proclock //c and Superclock //c** clock boards (fitted in the CPU socket, "upside-down") |
 | [Fun with the Apple //c memory expansion card](https://www.applefritter.com/node/8001) (2005) | The *IIc Technical Reference*, 2nd ed., covers the //c+. The *IIc Memory Card Reference* exists (we now have it) |
 
+## a2heaven (www.a2heaven.com)
+
+| Document | Key facts |
+|---|---|
+| RamExpress II+ product page and User Guide v1.02 | Existing 1 MB SRAM + RTC card for the //c **and //c+**, DClock-compatible, battery-backed. See [rtc-dclock.md](rtc-dclock.md) |
+| DClock Utility Disk (`DCLOCK.DSK`, ProDOS) | AE's `SOURCE.UTIL` (DClock routines, 1988) and `AE.CLOCK.PTCH` (ProDOS driver patch). Protocol in [rtc-dclock.md](rtc-dclock.md). Not committed (copyright) |
+| RamExpress II+ disk (`RamExpressII.DSK`) | Not a ProDOS volume (probably DOS 3.3); not examined yet |
+
 ## Available, not yet examined
 
 | What | Path on the mirror | Why |

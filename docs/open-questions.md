@@ -41,9 +41,10 @@ schematic apply too. See [sources.md](sources.md).
       See [firmware-analysis.md](firmware-analysis.md).
 - [x] //c ROM `$03`/`$04`: same driver as the IIe card ROM. The only card-related change in `$04` is the STATUS reply
       (online only when memory is found). See [firmware-analysis.md](firmware-analysis.md).
-- [ ] RTC: how ProDOS and other software would find the DS3234 on a //c, which has no slots. (The Laser card's approach
-      may not carry over.) Leads: the Proclock //c and Superclock //c (Jeff Mazur, CPU-socket boards). How did their
-      drivers hook into ProDOS?
+- [x] RTC: emulate AE's **DClock** (a DS1215 phantom clock on D0 behind the RAM at `$08xxxx`); the existing
+      `DCLOCK.SYSTEM` driver then works without new firmware. See [rtc-dclock.md](rtc-dclock.md).
+- [ ] DS1215 data sheet: the exact pattern-recognizer rules (reads during recognition, whether the RAM write still happens).
+- [ ] Battery-back the SRAM too, as the a2heaven RamExpress II+ does? (product decision)
 
 ## Sources to find
 - Apple II Memory Expansion Card (670-0024) schematic (applelogic.org, blocked here)
