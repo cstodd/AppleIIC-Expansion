@@ -42,7 +42,8 @@ What has been found, where it is, and what it tells us. Asimov mirror base:
 | What | Path on the mirror | Why |
 |---|---|---|
 | IIe/IIc firmware source (ProDOS `.2mg` images) | `emulators/rom_images/Apple IIe IIc Firmware SourceCode.zip` | The `$C400` RAM-disk driver shows register use and size detection. Check whether this is ROM `$03`/`$04` or earlier |
-| IIc ROM images | `emulators/rom_images/apple_iic_rom.zip` | Disassemble `$C400`/`$C800` if the source isn't ROM `$03`/`$04` |
+| IIc ROM images | `emulators/rom_images/apple_iic_rom.zip` | Checked: it's the UniDisk 3.5 ROM (`$00`), not `$03`/`$04`. The Spanish IIc ROM is the original (`$FF`) |
+| Apple II Memory Expansion Card ROM 341-0344A | `emulators/rom_images/Apple II Memory Expansion ROM_341-0344A.bin` | Disassembled: see [firmware-analysis.md](firmware-analysis.md) |
 | Apple IIc Plus Technical Look (HyperCard) | `documentation/hardware/misc/Apple IIc+ Technical Look (Mac Hypercard).zip` | IIc+ memory connector notes |
 | *Apple IIc Memory Expansion Card Owner's Guide* (scanned, no text layer) | `documentation/hardware/storage/memory/` | Probably user level, but check for a technical appendix |
 | Zip Chip manuals and patent | `documentation/hardware/accelerators/` | How a Zip-style accelerator handles slot I/O (the CGGA is Zip-derived) |

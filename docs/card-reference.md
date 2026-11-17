@@ -19,7 +19,8 @@ The card has "a 20-bit address register and a 1-byte data register".
 
 - "The address pointer **must be loaded in the following order: low byte, middle byte, high byte.**" Our design should
   behave correctly for that order. Whether another order also works on Apple's card is unknown, so don't depend on it.
-- The manual says nothing about what bits D7–D4 of `$C0C2` read back as. (The Laser's equivalent reads them as 1.)
+- The manual says nothing about what bits D7–D4 of `$C0C2` read back as. The firmware's diagnostics expect them to read as 1
+  (as on the Laser). See [firmware-analysis.md](firmware-analysis.md).
 - RESET disables the registers until a `$C4xx` access (Memory Expansion Card Tech Note #1, see [sources.md](sources.md)).
 
 ## Parts
@@ -62,8 +63,8 @@ PH0, Q3 and 7M.
 - Main ROM `$C400`: card boot code and the ProDOS/DOS entry point. `$C4FF` is the low byte of the entry address; the SmartPort
   dispatch is at `$C400 + ($C4FF) + 3`. ID bytes: `$C401=$20`, `$C403=$00`, `$C405=$03`, `$C407=$00`.
 - Auxiliary ROM `$D800–$DFFF`: the driver (`xread`, `xwrite`, `prdblk`, `pwrblk`…), `testsize` and `format` at `$DA00`, and
-  diagnostics `$DD00` (`addresstest`, `rollovertest`, `addbustest`…). To see exactly how the firmware sizes the card and
-  what it expects from the high nibble, disassemble `testsize` and `rollovertest` from a ROM `$03`/`$04` image.
+  diagnostics `$DD00` (`addresstest`, `rollovertest`, `addbustest`…). How the firmware sizes the card and what it
+  expects from the registers: see [firmware-analysis.md](firmware-analysis.md).
 - The card holds no firmware of its own.
 
 ## What this means for our design
@@ -71,5 +72,5 @@ PH0, Q3 and 7M.
 - One gate array + PAL + '245 ≈ one CPLD + '245. The CPLD would implement the `$C0C0–$C0C3` decode, the 20-bit pointer
   with auto-increment on data access, the RESET disable / `$C4xx` enable, and the SRAM strobes in PH0. No refresh logic.
 - The firmware only ever sees the register interface, so an SRAM card is invisible to software as long as
-  `testsize`/`rollovertest` pass. Check those routines before choosing how the high nibble reads back and how the pointer
-  wraps at 1 MB.
+  `testsize`/`rollovertest` pass. The register behaviour they need is listed in
+  [firmware-analysis.md](firmware-analysis.md).
