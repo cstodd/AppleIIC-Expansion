@@ -17,7 +17,8 @@ Both motherboards call this header **J13**.
 
 ## 1. //c J13 pinout (2×17, 0.1")
 
-The Fig. 11-43 table misprints pin 23 as a second "A15". The schematic shows **pin 23 = A14** and pin 24 = A15.
+The Fig. 11-43 table misprints pin 23 as a second "A15". The schematic and the card's own manual (*Apple IIc Memory
+Expansion Card Technical Reference*, Fig. 2-2, see [card-reference.md](card-reference.md)) both show **pin 23 = A14** and pin 24 = A15.
 **A2 and A3 are not on the connector**; the table and the schematic agree on that.
 
 Numbering alternates across the rows (1 opposite 2, 3 opposite 4 …). That differs from the Laser J13's DIP-style
