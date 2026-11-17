@@ -50,7 +50,19 @@ there takes part in pattern recognition. The patch then converts the BCD time to
 
 ## What this means for our card
 
-- To work with existing //c software (DCLOCK.SYSTEM, ClockWorks for AppleWorks, the a2heaven/AE utilities), **the CPLD should
+**Baseline: port the Laser card's rev 0.2 clock interface.** Laser repo `docs/design-notes.md` §10 and
+`software/rev02/README.md` describe it: an 8-byte unlock key written through ordinary expansion-RAM accesses, then an SPI port to
+the DS3234 on the data register, and a **122-byte ProDOS driver that fits ProDOS's 125-byte clock slot and never disables
+interrupts**. For the //c, retarget the driver from `$C0D0`–`$C0D3`/`$C500` to `$C0C0`–`$C0C3`/`$C400`. Anything that gets the
+time from ProDOS then works, as it does with DClock.
+
+**Option: DClock emulation**, for software that talks to a DClock directly instead of through ProDOS (AE's ClockWorks
+for AppleWorks, AE/a2heaven utilities). It costs CPLD logic (below). It doesn't help on the Laser: AE's driver has
+`$C0C0`–`$C0C3`/`$C400` written into its code, so it would need patching there anyway. Decide once the Laser card is validated.
+
+If DClock emulation is chosen:
+
+- To work with existing DClock software (DCLOCK.SYSTEM, ClockWorks for AppleWorks, the a2heaven/AE utilities), **the CPLD would
   emulate the DS1215 phantom-clock protocol on D0 at `$080000`**:
   - The clock's "chip" is the 256K row `$80000`–`$BFFFF` (at minimum: any address with high nibble `$8`, because the ProDOS patch
     leaves the middle byte unset).
@@ -64,7 +76,7 @@ there takes part in pattern recognition. The patch then converts the BCD time to
   directly (it's BCD too). The CPLD needs the 8 bytes ready when the clock banks in: either keep a shadow copy refreshed over
   SPI in the background, or burst-read over SPI on pattern match. (The driver loop takes ~20 µs per bit, so a burst read at
   1–4 MHz SPI is fast enough, but check the first-bit timing.) Writes: collect 64 bits, then write to the DS3234.
-- Unlike the Laser card, the //c side needs **no new firmware**. The existing DClock driver does it all.
+- With DClock emulation the //c needs no driver of our own; the existing DClock driver works unchanged.
 - **Possible extra:** a2heaven battery-backs the whole 1 MB SRAM. Our design could do the same (the SRAM needs a low-standby
   part and a power switchover). A product decision for later.
 

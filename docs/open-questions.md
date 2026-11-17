@@ -41,8 +41,9 @@ schematic apply too. See [sources.md](sources.md).
       See [firmware-analysis.md](firmware-analysis.md).
 - [x] //c ROM `$03`/`$04`: same driver as the IIe card ROM. The only card-related change in `$04` is the STATUS reply
       (online only when memory is found). See [firmware-analysis.md](firmware-analysis.md).
-- [x] RTC: emulate AE's **DClock** (a DS1215 phantom clock on D0 behind the RAM at `$08xxxx`); the existing
-      `DCLOCK.SYSTEM` driver then works without new firmware. See [rtc-dclock.md](rtc-dclock.md).
+- [x] RTC baseline: port the Laser rev 0.2 interface (unlock key + SPI port, 122-byte driver in ProDOS's clock slot),
+      retargeted to `$C0Cx`/`$C400`. Optional extra: emulate AE's **DClock** (a DS1215 phantom clock on D0 behind the RAM
+      at `$08xxxx`) so DClock-specific software works too. See [rtc-dclock.md](rtc-dclock.md).
 - [ ] (Deferred until the RTC choice is made.) Whether to stay DClock-compatible. If yes, the CPLD emulates the phantom-clock
       *protocol*; no DS1215/DS1315 is fitted. Then get the exact recognizer rules from the DS1215/DS1315 data sheet (reads during
       recognition, whether the RAM write still happens).

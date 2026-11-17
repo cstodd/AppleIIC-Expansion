@@ -16,7 +16,7 @@ memory-expandable //c (ROM `$03`/`$04`) and the //c+.
 | [docs/j13-memory-expansion-connector.md](docs/j13-memory-expansion-connector.md) | //c J13 (2×17) pinout from the IIc Technical Reference Manual and schematic 050-0180, compared with the Laser's J13, and what it means for the card |
 | [docs/card-reference.md](docs/card-reference.md) | Apple's card: registers, gate array/PAL/'245, refresh, layout, firmware map (from the card's technical reference) |
 | [docs/firmware-analysis.md](docs/firmware-analysis.md) | What the card firmware needs from the hardware (register read-back, wrap, size test), from a disassembly |
-| [docs/rtc-dclock.md](docs/rtc-dclock.md) | The //c clock convention (AE DClock, a DS1215 phantom clock behind RAM), its protocol, and the a2heaven RamExpress II+ (existing SRAM + RTC card) |
+| [docs/rtc-dclock.md](docs/rtc-dclock.md) | RTC options: port the Laser rev 0.2 interface (baseline) or emulate AE's DClock (the //c clock convention); the DClock protocol; the a2heaven RamExpress II+ (existing SRAM + RTC card) |
 | [docs/sources.md](docs/sources.md) | Documents found (and where), key facts from each, and what's still missing or blocked |
 | [docs/open-questions.md](docs/open-questions.md) | Things still to find out before a design starts |
 | [docs/ref/](docs/ref/) | Crops of the source pages |
