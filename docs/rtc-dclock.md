@@ -59,7 +59,8 @@ there takes part in pattern recognition. The patch then converts the BCD time to
     64 accesses there are clock bits on D0, not RAM.
   - Normal RAM-disk traffic in that row will often reset the recognizer. That's harmless, as with the real DClock. (Check the DS1215 data sheet for the exact rules: whether reads during
     recognition reset it, and whether the RAM write still happens during pattern writes.)
-- **Backing store:** the DS3234 we already use on the Laser card. It has no hundredths, so return `00`. Day/date/month/year/time map
+- This is emulation of the *protocol* only; no Dallas phantom-clock chip is fitted. The RTC part is a separate design choice.
+- **Backing store:** e.g. the DS3234 we already use on the Laser card (or whatever RTC the new board uses). It has no hundredths, so return `00`. Day/date/month/year/time map
   directly (it's BCD too). The CPLD needs the 8 bytes ready when the clock banks in: either keep a shadow copy refreshed over
   SPI in the background, or burst-read over SPI on pattern match. (The driver loop takes ~20 µs per bit, so a burst read at
   1–4 MHz SPI is fast enough, but check the first-bit timing.) Writes: collect 64 bits, then write to the DS3234.

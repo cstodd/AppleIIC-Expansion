@@ -43,7 +43,9 @@ schematic apply too. See [sources.md](sources.md).
       (online only when memory is found). See [firmware-analysis.md](firmware-analysis.md).
 - [x] RTC: emulate AE's **DClock** (a DS1215 phantom clock on D0 behind the RAM at `$08xxxx`); the existing
       `DCLOCK.SYSTEM` driver then works without new firmware. See [rtc-dclock.md](rtc-dclock.md).
-- [ ] DS1215 data sheet: the exact pattern-recognizer rules (reads during recognition, whether the RAM write still happens).
+- [ ] (Deferred until the RTC choice is made.) Whether to stay DClock-compatible. If yes, the CPLD emulates the phantom-clock
+      *protocol*; no DS1215/DS1315 is fitted. Then get the exact recognizer rules from the DS1215/DS1315 data sheet (reads during
+      recognition, whether the RAM write still happens).
 - [ ] Battery-back the SRAM too, as the a2heaven RamExpress II+ does? (product decision)
 
 ## Sources to find
