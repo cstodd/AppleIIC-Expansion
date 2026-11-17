@@ -2,17 +2,36 @@
 
 ## Which ROM
 
-No ROM `$03`/`$04` //c image was found on the Asimov mirror (the `apple_iic_rom.zip` image is the UniDisk 3.5 ROM,
-`$FBBF = $00`; the Spanish IIc ROM is the original, `$FF`). This analysis uses the **Apple II Memory Expansion Card ROM
-341-0344A** instead (`emulators/rom_images/Apple II Memory Expansion ROM_341-0344A.bin`), the IIe/II version of the card.
-Apple IIc Tech Note #5 says the //c card is "functionally identical" to that card, and the //c ROM map (card reference,
-Appendix A) has the same routines (`testsize`, `rollovertest`, `addresstest` …). So these requirements should carry
-over, but **re-check against a ROM `$03`/`$04` dump** when one turns up.
+The analysis started with the **Apple II Memory Expansion Card ROM 341-0344A**
+(`emulators/rom_images/Apple II Memory Expansion ROM_341-0344A.bin` on the Asimov mirror), the IIe/II version of the card,
+because no //c ROM `$03`/`$04` was on the mirror. It was then **confirmed against //c ROM `$03` and ROM `$04` dumps**
+supplied by the project owner (32 KB each, not committed; Apple copyright). See "The //c ROMs" below.
 
 ROM layout (4 KB): `$000` copyright text ("This wonderful, wonderful rom is brought to you by Richard Williams …"),
 `$100`–`$7FF` one `$Cn00` page per slot, `$800`–`$FFF` the shared `$C800`–`$CFFF` code. The firmware reaches the
 registers as `$BFF8,X`–`$BFFB,X` with X = `$80 + slot × 16` (`$C8` for slot 4, which gives `$C0C0`–`$C0C3`).
 Disassembled with py65. Addresses below are `$C800`-space addresses in that ROM.
+
+## The //c ROMs (`$03` and `$04`)
+
+Both are 32 KB: the main bank at offset `$0000` and the auxiliary bank at `$4000`, each mapped to `$C000`–`$FFFF`.
+Identification: main `$FBB3 = $06`, `$FBBF = $03` / `$04`; `$C401 = $20`, `$C403 = $00`, `$C405 = $03`, `$C407 = $00`
+(the card ID bytes in the card manual). `$C4FF = $4E`.
+
+- **Same driver code as the IIe card ROM.** The card driver is in the auxiliary bank `$D800`–`$DFFF`. It sets
+  Y = `$C4` and X = `$C8` (`$D8EF`–`$D8F4` in ROM `$03`) and uses the same `$BFF8,X`–`$BFFB,X` accesses. The size test
+  (ROM `$04` `$D99F`–`$D9DC`) and the register diagnostic (ROM `$04` `$DC4E`–`$DC71`, including the `ORA #$F0` check of the
+  high register and `DEC $BFF8,X`) are byte-for-byte the code at `$CAB1` and `$CD3E` in 341-0344A. So the requirements
+  below apply to the //c unchanged.
+- **No absolute `$C0C0`–`$C0C3` accesses anywhere**, and nothing touches `$C0C4`–`$C0CF`.
+- **ROM `$03` → `$04` change to the card driver:** only the SmartPort STATUS reply at `$D865`. ROM `$03` always returns
+  status `$01` (device online). ROM `$04` returns `$01` only if the size test found memory (`$03B8+slot` ≠ 0), which matches
+  "Firmware returns correct information when the Memory Expansion Card is not present" (IIc Tech Note #7). The
+  remaining differences in `$D865`–`$DB62` are the same code moved 10 bytes (12 operand bytes adjusted by `$0A`).
+  The other ROM `$04` changes (`$C8EF`, `$CFFF`, `$FD02`–`$FD0B`, `$FD4C`, `$FE74` main; `$C1FE`, `$C67E`–`$C6BD`, `$D1F2` aux)
+  are outside the card driver (keyboard buffering fix etc.).
+- **What this means for our card:** a //c with ROM `$03` reports a RAM disk even with no memory (it's a ROM bug, not
+  the card's fault). Under both ROMs, the card is detected purely by the size test, so our card only has to pass that.
 
 ## Requirements found
 

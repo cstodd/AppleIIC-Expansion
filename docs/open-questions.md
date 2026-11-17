@@ -9,8 +9,8 @@ schematic apply too. See [sources.md](sources.md).
 - [x] Registers (card manual): 20-bit pointer; `$C0C2` holds the high nibble (D3–D0); load low → mid → high; the data
       register auto-increments. See [card-reference.md](card-reference.md).
 - [x] `$C0C2` reads back with D7–D4 = 1; the pointer wraps `$FFFFF` → `$00000`; all registers must read back with the
-      auto-increment applied. See [firmware-analysis.md](firmware-analysis.md) (from the IIe card ROM 341-0344A; re-check
-      against a //c ROM `$03`/`$04` dump).
+      auto-increment applied. See [firmware-analysis.md](firmware-analysis.md) (IIe card ROM 341-0344A, confirmed
+      identical in //c ROM `$03` and `$04`).
 - [x] /RESET: turns the registers **off** until any access to `$C400`–`$C4FF` (`$Cn00`) re-enables them (Memory Expansion
       Card Tech Note #1). That's why J13 carries A8–A15 and /RESET. Still open: is the address register cleared too?
 - [x] The mirrors at `$C0C4–$C0CF` (no A2/A3 on J13): the card firmware never touches them.
@@ -35,8 +35,8 @@ schematic apply too. See [sources.md](sources.md).
 ## Firmware
 - [x] Size detection: probes 64K steps from `$F0000` down with `$A5`; addresses above the fitted memory must not alias.
       See [firmware-analysis.md](firmware-analysis.md).
-- [ ] Find a ROM `$03`/`$04` dump to confirm the //c driver matches the IIe card ROM. ROM `$03` always reports a card present;
-      ROM `$04` fixes that (IIc Tech Note #7). Source/ROM images are on the mirror (see sources.md).
+- [x] //c ROM `$03`/`$04`: same driver as the IIe card ROM. The only card-related change in `$04` is the STATUS reply
+      (online only when memory is found). See [firmware-analysis.md](firmware-analysis.md).
 - [ ] RTC: how ProDOS and other software would find the DS3234 on a //c, which has no slots. (The Laser card's approach
       may not carry over.)
 

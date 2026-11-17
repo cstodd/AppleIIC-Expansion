@@ -43,6 +43,7 @@ What has been found, where it is, and what it tells us. Asimov mirror base:
 |---|---|---|
 | IIe/IIc firmware source (ProDOS `.2mg` images) | `emulators/rom_images/Apple IIe IIc Firmware SourceCode.zip` | The `$C400` RAM-disk driver shows register use and size detection. Check whether this is ROM `$03`/`$04` or earlier |
 | IIc ROM images | `emulators/rom_images/apple_iic_rom.zip` | Checked: it's the UniDisk 3.5 ROM (`$00`), not `$03`/`$04`. The Spanish IIc ROM is the original (`$FF`) |
+| //c ROM `$03` and ROM `$04` (32 KB dumps) | supplied by the project owner, not committed (copyright) | Card driver confirmed identical to 341-0344A; ROM `$04` STATUS fix. See [firmware-analysis.md](firmware-analysis.md) |
 | Apple II Memory Expansion Card ROM 341-0344A | `emulators/rom_images/Apple II Memory Expansion ROM_341-0344A.bin` | Disassembled: see [firmware-analysis.md](firmware-analysis.md) |
 | Apple IIc Plus Technical Look (HyperCard) | `documentation/hardware/misc/Apple IIc+ Technical Look (Mac Hypercard).zip` | IIc+ memory connector notes |
 | *Apple IIc Memory Expansion Card Owner's Guide* (scanned, no text layer) | `documentation/hardware/storage/memory/` | Probably user level, but check for a technical appendix |
@@ -54,3 +55,4 @@ What has been found, where it is, and what it tells us. Asimov mirror base:
 |---|---|---|
 | Schematic of the Apple II Memory Expansion Card (670-0024) | applelogic.org (Peripheral Cards page) | Host allowed, but its HTTPS certificate chain fails verification through the proxy |
 | wiki.apple2.org *RAM Cards* (//c vs //c+ PAL notes, AE / Sequential cards) | wiki.apple2.org | Host allowed, but the gateway can't connect to it (down or no HTTPS) |
+| Archived copies of the two pages above | web.archive.org | Host allowed, but the connection is dropped during the TLS handshake (outside the environment settings) |
