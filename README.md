@@ -14,6 +14,7 @@ memory-expandable //c (ROM `$03`/`$04`) and the //c+.
 | File | What |
 |---|---|
 | [docs/j13-memory-expansion-connector.md](docs/j13-memory-expansion-connector.md) | //c J13 (2×17) pinout from the IIc Technical Reference Manual and schematic 050-0180, compared with the Laser's J13, and what it means for the card |
+| [docs/sources.md](docs/sources.md) | Documents found (and where), key facts from each, and what's still missing or blocked |
 | [docs/open-questions.md](docs/open-questions.md) | Things still to find out before a design starts |
 | [docs/ref/](docs/ref/) | Crops of the source pages |
 
