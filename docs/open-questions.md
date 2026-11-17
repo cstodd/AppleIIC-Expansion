@@ -21,7 +21,9 @@ schematic apply too. See [sources.md](sources.md).
 - [ ] Read: data setup and hold around the falling edge of PH0.
 - [ ] Write: when data is valid relative to PH0 and R/W.
 - [ ] //c+ (4 MHz): what Apple's card needs a different PAL for, and whether `$C0Cx` accesses slow to 1 MHz.
-  Lead: the IIc Plus CGGA runs **port 4 fast** by default (Appendix H).
+  Lead: the IIc Plus CGGA runs **port 4 fast** by default (Appendix H). Conflicting reports: Apple Tech Note #7 says the
+  original card doesn't work in the //c+, but forum sellers say Apple's card and the Chinook C-RAM work there. Apple had a
+  separate //c+ card ("Tiger Tail Plus", per Jeff Mazur on Applefritter).
   Lesson from the 128EX: strobes timed off the CPU at 1 MHz can come from a different path when accelerated.
 
 ## Mechanical
@@ -31,6 +33,8 @@ schematic apply too. See [sources.md](sources.md).
 - [ ] The break at the pin 17/18 row: shown in the IIc Technical Reference's Fig. 11-43 and in the card's J1 (card manual
       Fig. 2-1). A split or keyed connector? Check a real card.
 - [ ] Clearance under the keyboard.
+- [ ] //c+: the memory card "bridged over the CPU" (Jeff Mazur, Applefritter). Check the //c+ connector position and the
+      height over the CPU before assuming one board fits both machines.
 
 ## Firmware
 - [x] Size detection: probes 64K steps from `$F0000` down with `$A5`; addresses above the fitted memory must not alias.
@@ -38,7 +42,8 @@ schematic apply too. See [sources.md](sources.md).
 - [x] //c ROM `$03`/`$04`: same driver as the IIe card ROM. The only card-related change in `$04` is the STATUS reply
       (online only when memory is found). See [firmware-analysis.md](firmware-analysis.md).
 - [ ] RTC: how ProDOS and other software would find the DS3234 on a //c, which has no slots. (The Laser card's approach
-      may not carry over.)
+      may not carry over.) Leads: the Proclock //c and Superclock //c (Jeff Mazur, CPU-socket boards). How did their
+      drivers hook into ProDOS?
 
 ## Sources to find
 - Apple II Memory Expansion Card (670-0024) schematic (applelogic.org, blocked here)

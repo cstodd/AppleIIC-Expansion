@@ -37,6 +37,19 @@ What has been found, where it is, and what it tells us. Asimov mirror base:
   `DATA ERROR XXYYYY-ZZ` / `ADDRESS ERROR …`.
 - Rubber feet stuck to the bottom of the keyboard sit above the card. Memory ID stickers: 384K/640K/896K/1.15 MB.
 
+## Applefritter forum threads (www.applefritter.com)
+
+Forum posts are second-hand. Treat them as leads, not facts.
+
+| Thread | Key points |
+|---|---|
+| [Memory For Apple IIc Plus](https://www.applefritter.com/node/17721) (2006/2013) | The `C40AG` card test also exists on the //c+. A //c+ **with no card** reported `CARD SIZE = 1 MEG` and then `ADDRESS ERROR`. Likely cause: with nothing on the bus, the `$A5` the size test just wrote is still sitting on the data lines when it reads back, so every 64K step "passes". See firmware-analysis.md |
+| [Apple //c 1MB Memory Expansion, Apple //c+ …](https://www.applefritter.com/content/updatedapple-c-1mb-memory-expansion-apple-c-sold-separately-or-together) (2013) | Seller says Apple's //c card "will work … in its later look-alike (model#4100) and in the //c+ (model#4500)", and in a model 4000 only with an updated motherboard. **This contradicts Apple IIc Tech Note #7** ("not the original IIc Memory Expansion Card"). Unresolved; possibly a card revision difference |
+| [FS: CT-RAM-C memory expansion for IIc/IIc+](https://www.applefritter.com/node/23539) (2008) | Chinook Technologies C-RAM: for the memory-expandable //c (ROM 3) or //c+, "just attach it to the connector", "tested to work in a IIc+ system". 256K, expandable to 1 MB |
+| [WTB: AE RAM Express for Apple IIc & IIc+](https://www.applefritter.com/content/closed-wtb-ae-ram-express-apple-iic-iic) (2017) | AE RAM Express is for //c and //c+. A modern replacement is sold by a2heaven (product 144 in its web shop) |
+| [The CDrive Card](https://www.applefritter.com/node/24740), posts by Jeff Mazur (2010–2014) | "When the //c+ came out, **with its memory card that plugged in and bridged over the CPU** …" (so CPU-socket add-ons needed a ribbon cable). Apple's code name for "their //c+ memory card" was **"Tiger Tail Plus"**. Mazur designed the **Proclock //c and Superclock //c** clock boards (fitted in the CPU socket, "upside-down") |
+| [Fun with the Apple //c memory expansion card](https://www.applefritter.com/node/8001) (2005) | The *IIc Technical Reference*, 2nd ed., covers the //c+. The *IIc Memory Card Reference* exists (we now have it) |
+
 ## Available, not yet examined
 
 | What | Path on the mirror | Why |

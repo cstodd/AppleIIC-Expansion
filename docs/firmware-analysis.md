@@ -54,6 +54,10 @@ Identification: main `$FBB3 = $06`, `$FBBF = $03` / `$04`; `$C401 = $20`, `$C403
    (nibble + 1) × 64K. Consequence: **addresses above the fitted memory must not alias** onto real memory, or a
    small card is over-reported. With a full 1 MB of SRAM this can't happen. If we ever offer less, the extra addresses
    must not respond (or must read something other than what was written).
+   Field report (Applefritter, //c+ with **no card fitted**): the test reported "CARD SIZE = 1 MEG" and then an address
+   error. That's consistent with the floating data bus still holding the `$A5` just written. So **"not responding" isn't
+   enough**: on reads of addresses with no memory fitted, the card should **drive the bus with a value other than what was
+   written** (e.g. `$FF` or the complement), rather than leave it floating.
 7. **Registers are written in the order low, mid, high** everywhere. Nothing in the code depends on side effects of
    writing one register (e.g. writing low doesn't clear mid/high).
 8. **No accesses to `$C0C4`–`$C0CF`.** The mirrors caused by A2/A3 missing from J13 are harmless.
@@ -67,4 +71,5 @@ Tech Note #1 says was fixed in the //c ROM.
 - `$C0C3`: SRAM read or write at the pointer, then pointer + 1 (20-bit, wraps to 0) at the end of the access.
 - Reads of `$C0C0`–`$C0C2` have no side effects; writes load only the register written.
 - Registers disabled after /RESET until any `$C4xx` access (Tech Note #1).
-- Fit the full 1 MB, or block aliasing above the fitted size.
+- Fit the full 1 MB. If less is ever fitted, block aliasing above the fitted size and drive a value that doesn't match
+  what was written (not a floating bus) on reads there.
